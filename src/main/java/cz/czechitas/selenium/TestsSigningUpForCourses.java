@@ -26,15 +26,10 @@ public class TestsSigningUpForCourses {
         WebElement buttonLogIn = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-user')]"));
         buttonLogIn.click();
 
-        WebElement fieldEmail = browser.findElement(By.id("email"));
-        fieldEmail.sendKeys("arthur.dent@alphacentauri.org");
-        WebElement fieldPassword = browser.findElement(By.id("password"));
-        fieldPassword.sendKeys("theAnswerIs42");
-        WebElement logInButton = browser.findElement(By.xpath("//button[@type='submit']"));
-        logInButton.click();
+        logIn();
 
-        WebElement arthurDent = browser.findElement(By.xpath("//a[@class='dropdown-toggle']"));
-        Assertions.assertEquals("Arthur Dent", arthurDent.getText(), "Log in FAILED");
+        WebElement parentName = browser.findElement(By.xpath("//a[@class='dropdown-toggle']"));
+        Assertions.assertEquals("Arthur Dent", parentName.getText(), "Log in FAILED");
 
     }
 
@@ -47,47 +42,20 @@ public class TestsSigningUpForCourses {
         WebElement buttonSelectJavaCourse = browser.findElement(By.xpath("//a[contains(@href,'71-java-1')]"));
         buttonSelectJavaCourse.click();
 
-        WebElement fieldEmail = browser.findElement(By.id("email"));
-        fieldEmail.sendKeys("arthur.dent@alphacentauri.org");
-        WebElement fieldPassword = browser.findElement(By.id("password"));
-        fieldPassword.sendKeys("theAnswerIs42");
-        WebElement logInButton = browser.findElement(By.xpath("//button[@type='submit']"));
-        logInButton.click();
+        logIn();
 
         WebElement buttonChooseDate = browser.findElement(By.xpath("//button[@data-id='term_id']"));
         buttonChooseDate.click();
         WebElement buttonChosenDateOfCourse = browser.findElement(By.id("bs-select-1-0"));
         buttonChosenDateOfCourse.click();
 
-        WebElement fieldFirstNameOfStudent = browser.findElement(By.id("forename"));
-        fieldFirstNameOfStudent.sendKeys("Douglas");
-        WebElement fieldSurnameOfStudent = browser.findElement(By.id("surname"));
-        fieldSurnameOfStudent.sendKeys("Adams");
-        WebElement fieldBirthdate = browser.findElement(By.id("birthday"));
-        fieldBirthdate.sendKeys("25.05.2001");
-        WebElement labelPaymentCash = browser.findElement(By.xpath("//label[@for='payment_cash']"));
-        labelPaymentCash.click();
-        WebElement labelRestrictions = browser.findElement(By.xpath("//label[@for='restrictions_yes']"));
-        labelRestrictions.click();
-        WebElement fieldRestrictions = browser.findElement(By.id("restrictions"));
-        fieldRestrictions.sendKeys("He is carrying a towel.");
-        WebElement labelTermsConditions = browser.findElement(By.xpath("//label[@for='terms_conditions']"));
-        labelTermsConditions.click();
-        WebElement buttonSubmit = browser.findElement(By.xpath("//input[@type='submit']"));
-        buttonSubmit.click();
+        fillInForm();
 
         WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[@class='mb-1 btn btn-sm btn-success']"));
-        Assertions.assertEquals("Stáhnout potvrzení o přihlášení", registrationConfirmation.getText(), "Course selection -> " +
+        Assertions.assertNotNull(registrationConfirmation, "Course selection -> " +
                 "Login -> Registration - FAILED");
 
-        WebElement buttonDanger = browser.findElement(By.xpath("//div/a[contains(@class, 'danger')]"));
-        buttonDanger.click();
-        WebElement labelLoggedOut = browser.findElement(By.xpath("//label[@for='logged_out_other']"));
-        labelLoggedOut.click();
-        WebElement fieldReason = browser.findElement(By.id("logged_out_reason"));
-        fieldReason.sendKeys("Test");
-        WebElement buttonSubmitLogOut = browser.findElement(By.xpath("//td/input[@type='submit']"));
-        buttonSubmitLogOut.click();
+        logOut();
 
     }
 
@@ -97,12 +65,7 @@ public class TestsSigningUpForCourses {
         WebElement buttonLogIn = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-user')]"));
         buttonLogIn.click();
 
-        WebElement fieldEmail = browser.findElement(By.id("email"));
-        fieldEmail.sendKeys("arthur.dent@alphacentauri.org");
-        WebElement fieldPassword = browser.findElement(By.id("password"));
-        fieldPassword.sendKeys("theAnswerIs42");
-        WebElement logInButton = browser.findElement(By.xpath("//button[@type='submit']"));
-        logInButton.click();
+        logIn();
 
         WebElement buttonNewApplication = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-plus-circle')]"));
         buttonNewApplication.click();
@@ -113,39 +76,13 @@ public class TestsSigningUpForCourses {
         WebElement buttonSelectHTML1Course = browser.findElement(By.xpath("//a[contains(@href,'41-html-1')]"));
         buttonSelectHTML1Course.click();
 
-        WebElement buttonChooseDate = browser.findElement(By.xpath("//button[@data-id='term_id']"));
-        buttonChooseDate.click();
-        WebElement buttonChosenDateOfCourse = browser.findElement(By.id("bs-select-1-0"));
-        buttonChosenDateOfCourse.click();
-        WebElement fieldFirstNameOfStudent = browser.findElement(By.id("forename"));
-        fieldFirstNameOfStudent.sendKeys("Douglas");
-        WebElement fieldSurnameOfStudent = browser.findElement(By.id("surname"));
-        fieldSurnameOfStudent.sendKeys("Adams");
-        WebElement fieldBirthdate = browser.findElement(By.id("birthday"));
-        fieldBirthdate.sendKeys("25.05.2001");
-        WebElement labelPaymentCash = browser.findElement(By.xpath("//label[@for='payment_cash']"));
-        labelPaymentCash.click();
-        WebElement labelRestrictions = browser.findElement(By.xpath("//label[@for='restrictions_yes']"));
-        labelRestrictions.click();
-        WebElement fieldRestrictions = browser.findElement(By.id("restrictions"));
-        fieldRestrictions.sendKeys("He is carrying a towel.");
-        WebElement labelTermsConditions = browser.findElement(By.xpath("//label[@for='terms_conditions']"));
-        labelTermsConditions.click();
-        WebElement buttonSubmit = browser.findElement(By.xpath("//input[@type='submit']"));
-        buttonSubmit.click();
+        fillInForm();
 
         WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[@class='mb-1 btn btn-sm btn-success']"));
-        Assertions.assertEquals("Stáhnout potvrzení o přihlášení", registrationConfirmation.getText(), "Course selection -> " +
+        Assertions.assertNotNull(registrationConfirmation, "Course selection -> " +
                 "Login -> Registration - FAILED");
 
-        WebElement buttonDanger = browser.findElement(By.xpath("//div/a[contains(@class, 'danger')]"));
-        buttonDanger.click();
-        WebElement labelLoggedOut = browser.findElement(By.xpath("//label[@for='logged_out_other']"));
-        labelLoggedOut.click();
-        WebElement fieldReason = browser.findElement(By.id("logged_out_reason"));
-        fieldReason.sendKeys("Test");
-        WebElement buttonSubmitLogOut = browser.findElement(By.xpath("//td/input[@type='submit']"));
-        buttonSubmitLogOut.click();
+        logOut();
 
     }
 
@@ -155,12 +92,7 @@ public class TestsSigningUpForCourses {
         WebElement buttonLogIn = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-user')]"));
         buttonLogIn.click();
 
-        WebElement fieldEmail = browser.findElement(By.id("email"));
-        fieldEmail.sendKeys("arthur.dent@alphacentauri.org");
-        WebElement fieldPassword = browser.findElement(By.id("password"));
-        fieldPassword.sendKeys("theAnswerIs42");
-        WebElement logInButton = browser.findElement(By.xpath("//button[@type='submit']"));
-        logInButton.click();
+        logIn();
 
         WebElement selectNumberOfRows = browser.findElement(By.xpath("//div/label/select[@name='DataTables_Table_0_length']"));
         selectNumberOfRows.click();
@@ -180,7 +112,51 @@ public class TestsSigningUpForCourses {
     }
 
     @AfterEach
-        public void tearDown() {
+    public void tearDown() {
         browser.close();
+    }
+
+
+    public void logIn() {
+        WebElement fieldEmail = browser.findElement(By.id("email"));
+        fieldEmail.sendKeys("arthur.dent@alphacentauri.org");
+        WebElement fieldPassword = browser.findElement(By.id("password"));
+        fieldPassword.sendKeys("theAnswerIs42");
+        WebElement logInButton = browser.findElement(By.xpath("//button[@type='submit']"));
+        logInButton.click();
+    }
+
+    public void fillInForm() {
+        WebElement buttonChooseDate = browser.findElement(By.xpath("//button[@data-id='term_id']"));
+        buttonChooseDate.click();
+        WebElement buttonChosenDateOfCourse = browser.findElement(By.id("bs-select-1-0"));
+        buttonChosenDateOfCourse.click();
+        WebElement fieldFirstNameOfStudent = browser.findElement(By.id("forename"));
+        fieldFirstNameOfStudent.sendKeys("Douglas");
+        WebElement fieldSurnameOfStudent = browser.findElement(By.id("surname"));
+        fieldSurnameOfStudent.sendKeys("Adams");
+        WebElement fieldBirthdate = browser.findElement(By.id("birthday"));
+        fieldBirthdate.sendKeys("25.05.2001");
+        WebElement labelPaymentCash = browser.findElement(By.xpath("//label[@for='payment_cash']"));
+        labelPaymentCash.click();
+        WebElement labelRestrictions = browser.findElement(By.xpath("//label[@for='restrictions_yes']"));
+        labelRestrictions.click();
+        WebElement fieldRestrictions = browser.findElement(By.id("restrictions"));
+        fieldRestrictions.sendKeys("He is carrying a towel.");
+        WebElement labelTermsConditions = browser.findElement(By.xpath("//label[@for='terms_conditions']"));
+        labelTermsConditions.click();
+        WebElement buttonSubmit = browser.findElement(By.xpath("//input[@type='submit']"));
+        buttonSubmit.click();
+    }
+
+    public void logOut() {
+        WebElement buttonDanger = browser.findElement(By.xpath("//div/a[contains(@class, 'danger')]"));
+        buttonDanger.click();
+        WebElement labelLoggedOut = browser.findElement(By.xpath("//label[@for='logged_out_other']"));
+        labelLoggedOut.click();
+        WebElement fieldReason = browser.findElement(By.id("logged_out_reason"));
+        fieldReason.sendKeys("Test");
+        WebElement buttonSubmitLogOut = browser.findElement(By.xpath("//td/input[@type='submit']"));
+        buttonSubmitLogOut.click();
     }
 }
