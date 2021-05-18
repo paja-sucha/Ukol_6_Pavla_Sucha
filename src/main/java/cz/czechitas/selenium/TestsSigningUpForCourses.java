@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 public class TestsSigningUpForCourses {
 
+    private static final String URL_APLIKACE = "https://cz-test-dva.herokuapp.com/";   //konstanta
+
     WebDriver browser;
 
     @BeforeEach
@@ -22,7 +24,7 @@ public class TestsSigningUpForCourses {
 
     @Test
     public void parentLogsInToApplication() {
-        browser.navigate().to("https://cz-test-jedna.herokuapp.com/");
+        browser.navigate().to(URL_APLIKACE);
         WebElement buttonLogIn = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-user')]"));
         buttonLogIn.click();
 
@@ -30,12 +32,11 @@ public class TestsSigningUpForCourses {
 
         WebElement parentName = browser.findElement(By.xpath("//a[@class='dropdown-toggle']"));
         Assertions.assertEquals("Arthur Dent", parentName.getText(), "Log in FAILED");
-
     }
 
     @Test
     public void courseSelectionThenAccountLoginThenRegistrationForTheCourse() {
-        browser.navigate().to("https://cz-test-jedna.herokuapp.com/");
+        browser.navigate().to(URL_APLIKACE);
         WebElement buttonSelectProgrammingCourse = browser.findElement(By.xpath("//a[contains(@href,'programova')]"));
         buttonSelectProgrammingCourse.click();
 
@@ -54,14 +55,11 @@ public class TestsSigningUpForCourses {
         WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[@class='mb-1 btn btn-sm btn-success']"));
         Assertions.assertNotNull(registrationConfirmation, "Course selection -> " +
                 "Login -> Registration - FAILED");
-
-        logOut();
-
     }
 
     @Test
     public void accountLoginThenCourseSelectionThenRegistration() {
-        browser.navigate().to("https://cz-test-jedna.herokuapp.com/");
+        browser.navigate().to(URL_APLIKACE);
         WebElement buttonLogIn = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-user')]"));
         buttonLogIn.click();
 
@@ -81,14 +79,11 @@ public class TestsSigningUpForCourses {
         WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[@class='mb-1 btn btn-sm btn-success']"));
         Assertions.assertNotNull(registrationConfirmation, "Course selection -> " +
                 "Login -> Registration - FAILED");
-
-        logOut();
-
     }
 
     @Test
     public void correctNumberOfRowsOnPagesWithApplications() {
-        browser.navigate().to("https://cz-test-jedna.herokuapp.com/");
+        browser.navigate().to(URL_APLIKACE);
         WebElement buttonLogIn = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-user')]"));
         buttonLogIn.click();
 
@@ -147,16 +142,5 @@ public class TestsSigningUpForCourses {
         labelTermsConditions.click();
         WebElement buttonSubmit = browser.findElement(By.xpath("//input[@type='submit']"));
         buttonSubmit.click();
-    }
-
-    public void logOut() {
-        WebElement buttonDanger = browser.findElement(By.xpath("//div/a[contains(@class, 'danger')]"));
-        buttonDanger.click();
-        WebElement labelLoggedOut = browser.findElement(By.xpath("//label[@for='logged_out_other']"));
-        labelLoggedOut.click();
-        WebElement fieldReason = browser.findElement(By.id("logged_out_reason"));
-        fieldReason.sendKeys("Test");
-        WebElement buttonSubmitLogOut = browser.findElement(By.xpath("//td/input[@type='submit']"));
-        buttonSubmitLogOut.click();
     }
 }
