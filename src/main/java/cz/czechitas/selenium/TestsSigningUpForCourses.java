@@ -91,6 +91,8 @@ public class TestsSigningUpForCourses {
         browser.close();
     }
 
+    //----------------------------------------------------------------
+
     public void goToLoginPage() {
         WebElement buttonLogIn = browser.findElement(By.className("qa-login-button"));
         buttonLogIn.click();
