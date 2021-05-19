@@ -25,12 +25,12 @@ public class TestsSigningUpForCourses {
     @Test
     public void parentLogsInToApplication() {
         browser.navigate().to(URL_APLIKACE);
-        WebElement buttonLogIn = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-user')]"));
+        WebElement buttonLogIn = browser.findElement(By.className("qa-login-button"));
         buttonLogIn.click();
 
         logIn();
 
-        WebElement parentName = browser.findElement(By.xpath("//a[@class='dropdown-toggle']"));
+        WebElement parentName = browser.findElement(By.xpath("//a[" + className("qa-logged-in-username") + "]"));
         Assertions.assertEquals("Arthur Dent", parentName.getText(), "Log in FAILED");
     }
 
@@ -113,11 +113,23 @@ public class TestsSigningUpForCourses {
 
 
     public void logIn() {
+        enterEmail();
+        enterPassword();
+        clickOnLogInButton();
+    }
+
+    public void enterEmail() {
         WebElement fieldEmail = browser.findElement(By.id("email"));
         fieldEmail.sendKeys("arthur.dent@alphacentauri.org");
+    }
+
+    public void enterPassword() {
         WebElement fieldPassword = browser.findElement(By.id("password"));
         fieldPassword.sendKeys("theAnswerIs42");
-        WebElement logInButton = browser.findElement(By.xpath("//button[@type='submit']"));
+    }
+
+    public void clickOnLogInButton() {
+        WebElement logInButton = browser.findElement(By.xpath("//button[" + className("qa-login-button") + "]"));
         logInButton.click();
     }
 
@@ -142,5 +154,9 @@ public class TestsSigningUpForCourses {
         labelTermsConditions.click();
         WebElement buttonSubmit = browser.findElement(By.xpath("//input[@type='submit']"));
         buttonSubmit.click();
+    }
+
+    public static String className(String htmlClass) {
+        return "contains(concat(' ', normalize-space(@class), ' '), ' " + htmlClass + " ')";
     }
 }
