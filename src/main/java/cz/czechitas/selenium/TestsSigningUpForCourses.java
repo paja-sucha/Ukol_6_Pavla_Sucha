@@ -25,8 +25,7 @@ public class TestsSigningUpForCourses {
     @Test
     public void parentLogsInToApplication() {
         browser.navigate().to(URL_APLIKACE);
-        WebElement buttonLogIn = browser.findElement(By.className("qa-login-button"));
-        buttonLogIn.click();
+        goToLoginPage();
 
         logIn();
 
@@ -37,22 +36,13 @@ public class TestsSigningUpForCourses {
     @Test
     public void courseSelectionThenAccountLoginThenRegistrationForTheCourse() {
         browser.navigate().to(URL_APLIKACE);
-        WebElement buttonSelectProgrammingCourse = browser.findElement(By.xpath("//a[contains(@href,'programova')]"));
-        buttonSelectProgrammingCourse.click();
-
-        WebElement buttonSelectJavaCourse = browser.findElement(By.xpath("//a[contains(@href,'71-java-1')]"));
-        buttonSelectJavaCourse.click();
-
+        goToProgrammingCoursesPages();
+        selectJavaCourse();
         logIn();
-
-        WebElement buttonChooseDate = browser.findElement(By.xpath("//button[@data-id='term_id']"));
-        buttonChooseDate.click();
-        WebElement buttonChosenDateOfCourse = browser.findElement(By.id("bs-select-1-0"));
-        buttonChosenDateOfCourse.click();
 
         fillInForm();
 
-        WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[@class='mb-1 btn btn-sm btn-success']"));
+        WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[" +className("qa-confirmation-certificate-button") + "]"));
         Assertions.assertNotNull(registrationConfirmation, "Course selection -> " +
                 "Login -> Registration - FAILED");
     }
@@ -60,9 +50,7 @@ public class TestsSigningUpForCourses {
     @Test
     public void accountLoginThenCourseSelectionThenRegistration() {
         browser.navigate().to(URL_APLIKACE);
-        WebElement buttonLogIn = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-user')]"));
-        buttonLogIn.click();
-
+        goToLoginPage();
         logIn();
 
         WebElement buttonNewApplication = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-plus-circle')]"));
@@ -111,6 +99,10 @@ public class TestsSigningUpForCourses {
         browser.close();
     }
 
+    public void goToLoginPage() {
+        WebElement buttonLogIn = browser.findElement(By.className("qa-login-button"));
+        buttonLogIn.click();
+    }
 
     public void logIn() {
         enterEmail();
@@ -133,25 +125,71 @@ public class TestsSigningUpForCourses {
         logInButton.click();
     }
 
+    public void goToProgrammingCoursesPages() {
+        WebElement buttonSelectProgrammingCourse = browser.findElement(By.xpath("//a[contains(@href,'programova')]"));
+        buttonSelectProgrammingCourse.click();
+    }
+
+    public void selectJavaCourse() {
+        WebElement buttonSelectJavaCourse = browser.findElement(By.xpath("//a[contains(@href,'71-java-1')]"));
+        buttonSelectJavaCourse.click();
+    }
+
     public void fillInForm() {
+        chooseDateOfCourse();
+        enterFirstName("Douglas");
+        enterSurname("Adams");
+        enterBirthDate("25.05.2001");
+        checkTheBoxPayByCash();
+        checkTheBoxRestrictions();
+        enterRestrictions("He is carrying a towel.");
+        chceckTheBoxTermsConditions();
+        clickOnSubmitBtn();
+    }
+
+    public void chooseDateOfCourse() {
         WebElement buttonChooseDate = browser.findElement(By.xpath("//button[@data-id='term_id']"));
         buttonChooseDate.click();
         WebElement buttonChosenDateOfCourse = browser.findElement(By.id("bs-select-1-0"));
         buttonChosenDateOfCourse.click();
+    }
+
+    public void enterFirstName(String firstName) {
         WebElement fieldFirstNameOfStudent = browser.findElement(By.id("forename"));
-        fieldFirstNameOfStudent.sendKeys("Douglas");
+        fieldFirstNameOfStudent.sendKeys(firstName);
+    }
+
+    public void enterSurname(String surname) {
         WebElement fieldSurnameOfStudent = browser.findElement(By.id("surname"));
-        fieldSurnameOfStudent.sendKeys("Adams");
+        fieldSurnameOfStudent.sendKeys(surname);
+    }
+
+    public void enterBirthDate(String birthDate) {
         WebElement fieldBirthdate = browser.findElement(By.id("birthday"));
-        fieldBirthdate.sendKeys("25.05.2001");
+        fieldBirthdate.sendKeys(birthDate);
+    }
+
+    public void checkTheBoxPayByCash() {
         WebElement labelPaymentCash = browser.findElement(By.xpath("//label[@for='payment_cash']"));
         labelPaymentCash.click();
+    }
+
+    public void checkTheBoxRestrictions() {
         WebElement labelRestrictions = browser.findElement(By.xpath("//label[@for='restrictions_yes']"));
         labelRestrictions.click();
+    }
+
+    public void enterRestrictions(String restrictions) {
         WebElement fieldRestrictions = browser.findElement(By.id("restrictions"));
-        fieldRestrictions.sendKeys("He is carrying a towel.");
+        fieldRestrictions.sendKeys(restrictions);
+    }
+
+    public void chceckTheBoxTermsConditions() {
         WebElement labelTermsConditions = browser.findElement(By.xpath("//label[@for='terms_conditions']"));
         labelTermsConditions.click();
+    }
+
+    public void clickOnSubmitBtn() {
         WebElement buttonSubmit = browser.findElement(By.xpath("//input[@type='submit']"));
         buttonSubmit.click();
     }
