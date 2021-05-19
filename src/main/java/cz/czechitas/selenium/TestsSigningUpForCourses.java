@@ -25,8 +25,8 @@ public class TestsSigningUpForCourses {
     @Test
     public void parentLogsInToApplication() {
         browser.navigate().to(URL_APLIKACE);
-        goToLoginPage();
 
+        goToLoginPage();
         logIn();
 
         WebElement parentName = browser.findElement(By.xpath("//a[" + className("qa-logged-in-username") + "]"));
@@ -36,10 +36,10 @@ public class TestsSigningUpForCourses {
     @Test
     public void courseSelectionThenAccountLoginThenRegistrationForTheCourse() {
         browser.navigate().to(URL_APLIKACE);
-        goToProgrammingCoursesPages();
+
+        goToProgrammingCoursesPage();
         selectJavaCourse();
         logIn();
-
         fillInForm();
 
         WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[" +className("qa-confirmation-certificate-button") + "]"));
@@ -50,21 +50,15 @@ public class TestsSigningUpForCourses {
     @Test
     public void accountLoginThenCourseSelectionThenRegistration() {
         browser.navigate().to(URL_APLIKACE);
+
         goToLoginPage();
         logIn();
-
-        WebElement buttonNewApplication = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-plus-circle')]"));
-        buttonNewApplication.click();
-
-        WebElement buttonSelectWebCourse = browser.findElement(By.xpath("//a[contains(@href,'11-trimesicni-kurzy-webu')]"));
-        buttonSelectWebCourse.click();
-
-        WebElement buttonSelectHTML1Course = browser.findElement(By.xpath("//a[contains(@href,'41-html-1')]"));
-        buttonSelectHTML1Course.click();
-
+        clickOnNewAplicationBtn();
+        goToWebCoursesPage();
+        selectHTML1Course();
         fillInForm();
 
-        WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[@class='mb-1 btn btn-sm btn-success']"));
+        WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[" +className("qa-confirmation-certificate-button") + "]"));
         Assertions.assertNotNull(registrationConfirmation, "Course selection -> " +
                 "Login -> Registration - FAILED");
     }
@@ -72,11 +66,9 @@ public class TestsSigningUpForCourses {
     @Test
     public void correctNumberOfRowsOnPagesWithApplications() {
         browser.navigate().to(URL_APLIKACE);
-        WebElement buttonLogIn = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-user')]"));
-        buttonLogIn.click();
 
+        goToLoginPage();
         logIn();
-
         WebElement selectNumberOfRows = browser.findElement(By.xpath("//div/label/select[@name='DataTables_Table_0_length']"));
         selectNumberOfRows.click();
         WebElement number15 = browser.findElement(By.xpath("//div/label/select/option[@value='15']"));
@@ -125,7 +117,7 @@ public class TestsSigningUpForCourses {
         logInButton.click();
     }
 
-    public void goToProgrammingCoursesPages() {
+    public void goToProgrammingCoursesPage() {
         WebElement buttonSelectProgrammingCourse = browser.findElement(By.xpath("//a[contains(@href,'programova')]"));
         buttonSelectProgrammingCourse.click();
     }
@@ -192,6 +184,21 @@ public class TestsSigningUpForCourses {
     public void clickOnSubmitBtn() {
         WebElement buttonSubmit = browser.findElement(By.xpath("//input[@type='submit']"));
         buttonSubmit.click();
+    }
+
+    public void clickOnNewAplicationBtn() {
+        WebElement buttonNewApplication = browser.findElement(By.xpath("//div/a/i[contains(@class, 'fa-plus-circle')]"));
+        buttonNewApplication.click();
+    }
+
+    public void goToWebCoursesPage() {
+        WebElement buttonSelectWebCourse = browser.findElement(By.xpath("//a[contains(@href,'11-trimesicni-kurzy-webu')]"));
+        buttonSelectWebCourse.click();
+    }
+
+    public void selectHTML1Course() {
+        WebElement buttonSelectHTML1Course = browser.findElement(By.xpath("//a[contains(@href,'41-html-1')]"));
+        buttonSelectHTML1Course.click();
     }
 
     public static String className(String htmlClass) {
