@@ -27,7 +27,7 @@ public class TestsSigningUpForCourses {
         browser.navigate().to(URL_APLIKACE);
 
         goToLoginPage();
-        logIn();
+        logIn("arthur.dent@alphacentauri.org", "theAnswerIs42");
 
         WebElement parentName = browser.findElement(By.xpath("//a[" + className("qa-logged-in-username") + "]"));
         Assertions.assertEquals("Arthur Dent", parentName.getText(), "Log in FAILED");
@@ -39,8 +39,8 @@ public class TestsSigningUpForCourses {
 
         goToProgrammingCoursesPage();
         selectJavaCourse();
-        logIn();
-        fillInForm();
+        logIn("arthur.dent@alphacentauri.org", "theAnswerIs42");
+        fillInForm("Douglas", "Adams", "25.05.2001", "He is carrying a towel.");
 
         WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[" +className("qa-confirmation-certificate-button") + "]"));
         Assertions.assertNotNull(registrationConfirmation, "Course selection -> " +
@@ -52,11 +52,11 @@ public class TestsSigningUpForCourses {
         browser.navigate().to(URL_APLIKACE);
 
         goToLoginPage();
-        logIn();
+        logIn("arthur.dent@alphacentauri.org", "theAnswerIs42");
         clickOnNewAplicationBtn();
         goToWebCoursesPage();
         selectHTML1Course();
-        fillInForm();
+        fillInForm("Douglas", "Adams", "25.05.2001", "He is carrying a towel.");
 
         WebElement registrationConfirmation = browser.findElement(By.xpath("//tr/td/a[" +className("qa-confirmation-certificate-button") + "]"));
         Assertions.assertNotNull(registrationConfirmation, "Course selection -> " +
@@ -68,7 +68,7 @@ public class TestsSigningUpForCourses {
         browser.navigate().to(URL_APLIKACE);
 
         goToLoginPage();
-        logIn();
+        logIn("arthur.dent@alphacentauri.org", "theAnswerIs42");
         WebElement selectNumberOfRows = browser.findElement(By.xpath("//div/label/select[@name='DataTables_Table_0_length']"));
         selectNumberOfRows.click();
         WebElement number15 = browser.findElement(By.xpath("//div/label/select/option[@value='15']"));
@@ -96,20 +96,20 @@ public class TestsSigningUpForCourses {
         buttonLogIn.click();
     }
 
-    public void logIn() {
-        enterEmail();
-        enterPassword();
+    public void logIn(String email, String password) {
+        enterEmail(email);
+        enterPassword(password);
         clickOnLogInButton();
     }
 
-    public void enterEmail() {
+    public void enterEmail(String email) {
         WebElement fieldEmail = browser.findElement(By.id("email"));
-        fieldEmail.sendKeys("arthur.dent@alphacentauri.org");
+        fieldEmail.sendKeys(email);
     }
 
-    public void enterPassword() {
+    public void enterPassword(String password) {
         WebElement fieldPassword = browser.findElement(By.id("password"));
-        fieldPassword.sendKeys("theAnswerIs42");
+        fieldPassword.sendKeys(password);
     }
 
     public void clickOnLogInButton() {
@@ -127,14 +127,14 @@ public class TestsSigningUpForCourses {
         buttonSelectJavaCourse.click();
     }
 
-    public void fillInForm() {
+    public void fillInForm(String firstName, String surname, String birthDate, String restrictions) {
         chooseDateOfCourse();
-        enterFirstName("Douglas");
-        enterSurname("Adams");
-        enterBirthDate("25.05.2001");
+        enterFirstName(firstName);
+        enterSurname(surname);
+        enterBirthDate(birthDate);
         checkTheBoxPayByCash();
         checkTheBoxRestrictions();
-        enterRestrictions("He is carrying a towel.");
+        enterRestrictions(restrictions);
         chceckTheBoxTermsConditions();
         clickOnSubmitBtn();
     }
